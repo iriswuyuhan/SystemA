@@ -14,7 +14,11 @@ class Connection:
         self.cursor.execute(sql)
         return self.cursor.fetchall()
 
-    def commit(self):
+    def update(self,sql):
+        self.cursor.execute(sql)
+        self._commit_()
+
+    def _commit_(self):
         self.conn.commit()
 
     def close(self):

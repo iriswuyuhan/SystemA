@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url
+from .service import login_service
+from .service import select_service
+from .service import drop_service
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
+    path('',admin.site.urls),
+    url(r'^usrlogin/$', login_service.login),
+    url(r'^course/select/$',select_service.select),
+    url(r'^course/drop/$',drop_service.drop)
 ]
