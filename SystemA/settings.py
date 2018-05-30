@@ -25,7 +25,7 @@ SECRET_KEY = '7+^mtvzrl7u(+(niekf0-c8alj0$_hj9_@x$2x@ou#@5z-bh8n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -75,10 +75,20 @@ WSGI_APPLICATION = 'SystemA.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
+    # 'default': {
+    #     'ENGINE': 'sqlserver',
+    #     'NAME': 'departmenta',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '1433',
+    #     'OPTIONS': {
+    #         'DRIVER': 'SQL Server Native Client 10.0'
+    #     }
+    # }
+
 }
 
 
@@ -104,9 +114,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
