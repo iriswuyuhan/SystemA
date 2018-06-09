@@ -19,11 +19,17 @@ from django.conf.urls import url
 from .service import login_service
 from .service import select_service
 from .service import drop_service
+from .service import get_service
+from .service import student_service
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('',admin.site.urls),
     url(r'^usrlogin/$', login_service.login),
     url(r'^course/select/$',select_service.select),
-    url(r'^course/drop/$',drop_service.drop)
+    url(r'^course/drop/$',drop_service.drop),
+    url(r'^course/getAll/$',get_service.getAll),
+    url(r'^course/getStu/$',get_service.getSelect),
+    url(r'^student/getAll/$',student_service.getAll),
+    url(r'^student/getStu/$',student_service.getStu)
 ]

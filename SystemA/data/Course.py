@@ -2,24 +2,21 @@ from .Connect import Connection
 import numpy as np
 
 class Course:
-    def getCourse(self,sid):
+    def getCourse(self):
         conn=Connection()
         sql="SELECT * FROM dbo.课程;"
         result=conn.query(sql)
+        conn.close()
         print(result)
-        for i in range(0,len(result)):
-            result[i]=list(result[i])
-            result[i].append(False)
-        print(result)
+        return result
 
+    def getSelectCourse(self,sid):
+        conn = Connection()
         sql="SELECT * FROM dbo.选课 WHERE 学生编号='"+sid+"';"
         sresult=conn.query(sql)
-        for i in range(0,len(sresult)):
-            cid=int(sresult[i][0])
-            result[cid][6]=True
-
-        return result
-        pass
+        conn.close()
+        print(sresult)
+        return sresult
 
     def selectCourse(self,sid,cid):
         conn=Connection()
