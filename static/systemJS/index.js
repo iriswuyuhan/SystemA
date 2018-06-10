@@ -16,16 +16,17 @@ $('#person_info_btn').click(function () {
 function loadInfo() {
     $.ajax({
         type: 'GET',
-        url:'/getStuInfo',
+        url:'/student/getStu/',
         data:{
-            Sno: localStorage.getItem('account')
+            account: localStorage.getItem('account')
         },
+        dataType: 'xml',
         success: function (result) {
-            let info = parseXML(result).getElementsByTagName("学生信息");
-            $("#s_id").text(info.getElementsByTagName("学号")[0].firstChild.nodeValue);
-            $('#s_name').text(info.getElementsByTagName("姓名")[0].firstChild.nodeValue);
-            $('#gender').text(info.getElementsByTagName("性别")[0].firstChild.nodeValue);
-            $('#major').text(info.getElementsByTagName("院系")[0].firstChild.nodeValue);
+            let info = parseXML(result).getElementsByTagName("a:学生信息");
+            $("#s_id").text(info.getElementsByTagName("a:学号")[0].firstChild.nodeValue);
+            $('#s_name').text(info.getElementsByTagName("a:姓名")[0].firstChild.nodeValue);
+            $('#gender').text(info.getElementsByTagName("a:性别")[0].firstChild.nodeValue);
+            $('#major').text(info.getElementsByTagName("a:院系")[0].firstChild.nodeValue);
         },
         error: function (xhr) {
             console.log(xhr);
@@ -42,26 +43,27 @@ function loadPersonalClass() {
         },
         dataType: 'xml',
         success: function (result) {
-            let resultList = parseXML(result).getElementsByTagName("课程");
+            let resultList = parseXML(result).getElementsByTagName("a:课程");
             for (let i = 0; i < resultList.length; i++) {
-                $('#college').append(
-                    '<tr>' +
-                    '<td>' + resultList[i].getElementsByTagName("课程编号")[0].firstChild.nodeValue + '</td>' +
-                    '<td>' + resultList[i].getElementsByTagName("课程名称")[0].firstChild.nodeValue + '</td>' +
-                    '<td>' + resultList[i].getElementsByTagName("学分")[0].firstChild.nodeValue + '</td>' +
-                    '<td>' + resultList[i].getElementsByTagName("授课老师")[0].firstChild.nodeValue + '</td>' +
-                    '<td>' + resultList[i].getElementsByTagName("授课地点")[0].firstChild.nodeValue + '</td>' +
-                    '<td>' +
-                    '<button class="btn btn-link" id="choose_' + i + '">选课</button>' +
-                    '<label id="chosen_' + i + '" style="display: none">已选择</label>' +
-                    '</td>' +
-                    '</tr>' +
-                    '<script>' +
-                    '$("#choose_' + i + '").click(function() {' +
-                    'deleteSubject("' + resultList[i].getElementsByTagName("课程编号")[0].firstChild.nodeValue + '")' +
-                    '});' +
-                    '</script>'
-                );
+                if (resultList[i].getElementsByTagName("a:选择")[0].firstChild.nodeValue === "True"){
+                    $('#college').append(
+                        '<tr>' +
+                        '<td>' + resultList[i].getElementsByTagName("a:课程编号")[0].firstChild.nodeValue + '</td>' +
+                        '<td>' + resultList[i].getElementsByTagName("a:课程名称")[0].firstChild.nodeValue + '</td>' +
+                        '<td>' + resultList[i].getElementsByTagName("a:学分")[0].firstChild.nodeValue + '</td>' +
+                        '<td>' + resultList[i].getElementsByTagName("a:授课老师")[0].firstChild.nodeValue + '</td>' +
+                        '<td>' + resultList[i].getElementsByTagName("a:授课地点")[0].firstChild.nodeValue + '</td>' +
+                        '<td>' +
+                        '<button class="btn btn-link" id="choose_' + i + '">退课</button>' +
+                        '</td>' +
+                        '</tr>' +
+                        '<script>' +
+                        '$("#choose_' + i + '").click(function() {' +
+                        'deleteSubject("' + resultList[i].getElementsByTagName("a:课程编号")[0].firstChild.nodeValue + '")' +
+                        '});' +
+                        '</script>'
+                    );
+                }
             }
         },
         error: function (xhr) {
