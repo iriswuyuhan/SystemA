@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
+from django.views.generic import TemplateView
 from .service import login_service
 from .service import select_service
 from .service import drop_service
@@ -33,5 +34,6 @@ urlpatterns = [
     url(r'^course/getAllSelect/$',get_service.getAllSelect),
     url(r'^student/getAll/$',student_service.getAll),
     url(r'^student/getStu/$',student_service.getStu),
-    url(r'^student/addStu/$',student_service.addStu)
+    url(r'^student/addStu/$',student_service.addStu),
+    url(r'^test/$',TemplateView.as_view(template_name="test.html"),name="test")
 ]
