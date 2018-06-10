@@ -33,5 +33,5 @@ urlpatterns = [
     url(r'^course/getAllSelect/$',get_service.getAllSelect),
     url(r'^student/getAll/$',student_service.getAll),
     url(r'^student/getStu/$',student_service.getStu),
-    url(r'^student/getStu/$',student_service.addStu)
+    url(r'^student/addStu/$',student_service.addStu)
 ]
