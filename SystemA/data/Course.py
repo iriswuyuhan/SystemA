@@ -18,6 +18,13 @@ class Course:
         print(sresult)
         return sresult
 
+    def getAllSelect(self):
+        conn=Connection()
+        sql="SELECT * FROM dbo.选课;"
+        result=conn.query(sql)
+        conn.close()
+        return result
+
     def selectCourse(self,sid,cid):
         conn=Connection()
         sql="INSERT INTO dbo.选课 VALUES ('"+cid+"','"+sid+"',NULL);"

@@ -2,6 +2,13 @@ from django.http import HttpResponse
 from ..data.Student import Student
 import xml.dom.minidom as dm
 
+def addStu(request):
+    student=Student()
+    bodydata=request.body
+    doc=dm.parseString(bodydata)
+    student.addStudent(doc)
+    return HttpResponse(True)
+
 def getAll(request):
     student=Student()
     stuInfo=student.getAll()

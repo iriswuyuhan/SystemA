@@ -6,26 +6,35 @@ def getSelect(request):
     sid=str(request.GET.get("sid"))
     course = Course()
     courseInfo = course.getSelectCourse(sid)
+    wrapped=wrapSelect(courseInfo)
+    return HttpResponse(wrapped,"text/xml")
+
+def getAllSelect(request):
+    course=Course()
+    courseInfo=course.getAllSelect()
+    wrapped=wrapSelect(courseInfo)
+    return HttpResponse(wrapped,"text/xml")
+
+def wrapSelect(courseInfo):
     doc = dm.Document()
-    root=doc.createElement("选课列表")
+    root = doc.createElement("选课列表")
     for item in courseInfo:
-        select=doc.createElement("选课")
-        dep=doc.createElement("开课院系")
+        select = doc.createElement("选课")
+        dep = doc.createElement("开课院系")
         dep.appendChild(doc.createTextNode("A"))
         select.appendChild(dep)
-        sid=doc.createElement("学号")
+        sid = doc.createElement("学号")
         sid.appendChild(doc.createTextNode(item[1]))
         select.appendChild(sid)
-        cid=doc.createElement("课程编号")
+        cid = doc.createElement("课程编号")
         cid.appendChild(doc.createTextNode(item[0]))
         select.appendChild(cid)
-        grd=doc.createElement("成绩")
+        grd = doc.createElement("成绩")
         grd.appendChild(doc.createTextNode(item[2]))
         select.appendChild(grd)
         root.appendChild(select)
     doc.appendChild(root)
-    return HttpResponse(doc.toxml(),"text/xml")
-
+    return doc.toxml()
 
 def getAll(request):
     course = Course()
