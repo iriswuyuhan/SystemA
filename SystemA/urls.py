@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^course/getStu/$',get_service.getSelect),
     url(r'^course/getAllSelect/$',get_service.getAllSelect),
     url(r'^course/check/$',get_service.checkSelect),
+    url(r'^course/statistic/$',get_service.getStatistic),
     url(r'^student/getAll/$',student_service.getAll),
     url(r'^student/getStu/$',student_service.getStu),
     url(r'^student/addStu/$',student_service.addStu),
