@@ -20,9 +20,9 @@ function loadInfo() {
         data:{
             account: localStorage.getItem('account')
         },
-        dataType: 'xml',
+        dataType: 'text',
         success: function (result) {
-            let info = parseXML(result).getElementsByTagName("a:学生信息");
+            let info = parseXML(result).getElementsByTagName("a:学生信息")[0];
             $("#s_id").text(info.getElementsByTagName("a:学号")[0].firstChild.nodeValue);
             $('#s_name').text(info.getElementsByTagName("a:姓名")[0].firstChild.nodeValue);
             $('#gender').text(info.getElementsByTagName("a:性别")[0].firstChild.nodeValue);
@@ -37,16 +37,18 @@ function loadInfo() {
 function loadPersonalClass() {
     $.ajax({
         type: 'GET',
-        url:'/course/getStu/',
-        data:{
-            sis: localStorage.getItem('account')
+        url: '/course/getStu/',
+        data: {
+            sid: localStorage.getItem('account')
         },
-        dataType: 'xml',
+        dataType: 'text',
         success: function (result) {
             let resultList = parseXML(result).getElementsByTagName("a:课程");
             for (let i = 0; i < resultList.length; i++) {
+                console.log(resultList[i].getElementsByTagName("a:选择")[0].firstChild.nodeValue);
                 if (resultList[i].getElementsByTagName("a:选择")[0].firstChild.nodeValue === "True"){
-                    $('#college').append(
+                    console.log("success");
+                    $('#course_table').append(
                         '<tr>' +
                         '<td>' + resultList[i].getElementsByTagName("a:课程编号")[0].firstChild.nodeValue + '</td>' +
                         '<td>' + resultList[i].getElementsByTagName("a:课程名称")[0].firstChild.nodeValue + '</td>' +

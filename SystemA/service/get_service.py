@@ -70,7 +70,7 @@ def wrapSelect(courseInfo):
         cid.appendChild(doc.createTextNode(item[0]))
         select.appendChild(cid)
         grd = doc.createElement("a:成绩")
-        grd.appendChild(doc.createTextNode(item[2]))
+        grd.appendChild(doc.createTextNode("无"))
         select.appendChild(grd)
         root.appendChild(select)
     doc.appendChild(root)
@@ -107,3 +107,16 @@ def getAll(request):
         root.appendChild(c)
     doc.appendChild(root)
     return HttpResponse(doc.toxml(),"text/xml")
+
+def getStu(request):
+    sid = str(request.GET.get("sid"))
+    course = Course()
+    stuCourseInfo = course.getSelectCourse(sid)
+    wrapped=wrapSelect(stuCourseInfo)
+    return HttpResponse(wrapped,"text/xml")
+
+def checkSelect(request):
+    sid=str(request.GET.get("sid"))
+    cid=str(request.GET.get("cid"))
+    course=Course()
+    return HttpResponse(course.checkCourse(sid,cid))

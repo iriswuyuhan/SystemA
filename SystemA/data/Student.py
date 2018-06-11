@@ -1,4 +1,4 @@
-from .Connect import Connection
+from .Connect import Connection;
 import xml.dom.minidom as dm
 
 class Student:

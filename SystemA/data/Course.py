@@ -47,3 +47,13 @@ class Course:
             return False
         conn.close()
         return True
+
+    def checkCourse(self,sid,cid):
+        conn=Connection()
+        sql = "DELETE FROM dbo.选课 WHERE 课程编号='" + cid + "' AND 学生编号='" + sid + "';"
+        result=conn.query(sql)
+        conn.close()
+        if result == None or len(result) == 0:
+            return False
+        else:
+            return True

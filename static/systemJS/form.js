@@ -8,10 +8,14 @@ function load() {
     $.ajax({
         type: 'GET',
         url: '/course/getStu/',
-        dataType: 'xml',
+        data: {
+            sid: localStorage.getItem('account')
+        },
+        dataType: 'text',
         success: function (result) {
             let resultList = parseXML(result).getElementsByTagName("a:课程");
             for (let i = 0; i < resultList.length; i++) {
+
                 if (resultList[i].getElementsByTagName("a:选择")[0].firstChild.nodeValue === "True"){
                     $('#college').append(
                         '<tr>' +
@@ -39,7 +43,7 @@ function load() {
                         '</tr>' +
                         '<script>' +
                         '$("#choose_' + i + '").click(function() {' +
-                        'deleteSubject("' + resultList[i].getElementsByTagName("a:课程编号")[0].firstChild.nodeValue + '")' +
+                        'chooseClass("' + resultList[i].getElementsByTagName("a:课程编号")[0].firstChild.nodeValue + '")' +
                         '});' +
                         '</script>'
                     );

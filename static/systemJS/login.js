@@ -36,6 +36,6 @@ function check() {
     } else {
         $('#loginAndSign').hide();
         $('#welcomeUser').show();
-        document.getElementById('user').innerText = localStorage.getItem('Sno');
+        document.getElementById('user').innerText = localStorage.getItem('account');
     }
 }

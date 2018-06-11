@@ -15,6 +15,8 @@ def login(request):
         # courseInfo.append(sid)
         # jsonstr=json.dumps(courseInfo)
         # return HttpResponse(jsonstr,content_type="application/json")
+        print(True)
         return HttpResponse("True")
     else:
+        print(False)
         return HttpResponse("False")
