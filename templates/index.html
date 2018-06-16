@@ -14,7 +14,6 @@
     <link href="../static/css/custom-styles.css" rel="stylesheet" />
     <!-- Google Fonts-->
     <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />-->
-    <link rel="stylesheet" href="../static/js/Lightweight-Chart/cssCharts.css">
 </head>
 
 <body>
@@ -32,9 +31,14 @@
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
-                <li id="loginAndSign">
+                <li id="stuLogin">
                     <a class="waves-effect waves-dark" data-target="#loginWindow" data-toggle="modal">
-                        <i class="fa fa-user fa-fw"></i><b>登录 ／ 注册</b>
+                        <i class="fa fa-user fa-fw"></i><b>学生登录入口</b>
+                    </a>
+                </li>
+                <li id="manLogin">
+                    <a class="waves-effect waves-dark" data-target="#managerLoginWindow" data-toggle="modal">
+                        <i class="fa fa-user fa-fw"></i><b>管理员登录入口</b>
                     </a>
                 </li>
 				<li id="welcomeUser" style="display: none">
@@ -60,6 +64,28 @@
                     </div>
                     <div class="modal-footer">
                         <button id="login" class="btn login" data-dismiss="modal">登录</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        //管理员登录
+        <div class="modal fade" id="managerLoginWindow" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span>管理员登录</span>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <input id="managerName" class="input" type="text" placeholder="用户名"/>
+                            <br>
+                            <input id="managePass" class="input" type="password" placeholder="密码"/>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="managerLogin" class="btn login" data-dismiss="modal">登录</button>
                     </div>
                 </div>
             </div>

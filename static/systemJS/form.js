@@ -1,9 +1,31 @@
 $().ready(function () {
-    check();
+    // check();
+    $('#own').click();
+});
+
+$('#own').click(function () {
+    $('#own').addClass("active-menu");
+    $('#other').removeClass("active-menu");
+    $('#view').text("专业选课");
+    $('#share').hide();
     load();
 });
 
-//加载所有课程信息
+$('#other').click(function () {
+    $('#other').addClass("active-menu");
+    $('#own').removeClass("active-menu");
+    $('#view').text("跨院系选课");
+    $('#share').show();
+    $('#college').empty();
+});
+
+$('#check').click(function () {
+    let dep = $('input[name=dep]:checked').val();
+
+    // loadShareCourse(dep);
+});
+
+//加载院系所有课程信息
 function load() {
     $.ajax({
         type: 'GET',
