@@ -8,6 +8,7 @@ $('#own').click(function () {
     $('#other').removeClass("active-menu");
     $('#view').text("专业选课");
     $('#share').hide();
+    $('#college').empty();
     load();
 });
 

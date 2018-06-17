@@ -195,10 +195,10 @@ def getShare(request):
     stuCourseInfo = course.getSelectCourse(sid)
     for i in range(0, len(courseInfo)):
         courseInfo[i] = list(courseInfo[i])
-        courseInfo[i].append(False)
+        courseInfo[i].append("false")
     for i in range(0, len(stuCourseInfo)):
         cid = int(stuCourseInfo[i][0][1:])
-        courseInfo[cid][6] = True
+        courseInfo[cid][6] = "true"
 
     doc = dm.Document()
     root = doc.createElementNS("nju.edu.cn/schema/a", "a:课程列表")
@@ -227,10 +227,11 @@ def getShare(request):
             share.appendChild(doc.createTextNode(item[5]))
             c.appendChild(share)
             select = doc.createElement("a:选择")
-            select.appendChild(doc.createTextNode(str(item[6])))
+            select.appendChild(doc.createTextNode(item[6]))
             c.appendChild(select)
             root.appendChild(c)
     doc.appendChild(root)
+    print(doc.toxml())
     return HttpResponse(doc.toxml(), "text/xml")
     pass
 

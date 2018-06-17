@@ -29,21 +29,21 @@ urlpatterns = [
     path('',admin.site.urls),
     url(r'^usrlogin/$', login_service.login),
     url(r'^adminlogin/$',admin_service.login),
-    url(r'^course/select/$',select_service.select),
+    url(r'^course/select/$',select_service.select), #service
     url(r'^course/add/$',admin_service.addCourse),
     url(r'^course/remove/$',admin_service.removeCourse),
-    url(r'^course/drop/$',drop_service.drop),
-    url(r'^course/getAll/$',get_service.getAll),
+    url(r'^course/drop/$',drop_service.drop), #service
+    url(r'^course/getAll/$',get_service.getAll), #service
     url(r'^course/getStuSelect$',get_service.getStu),
     url(r'^course/getStu/$',get_service.getSelect),
-    url(r'^course/getAllSelect/$',get_service.getAllSelect),
-    url(r'^course/getShare/$',get_service.getShare),
+    url(r'^course/getAllSelect/$',get_service.getAllSelect), #service
+    url(r'^course/getShare/$',get_service.getShare), #service
     url(r'^course/getCross/$',get_service.getCross),
     url(r'^course/check/$',get_service.checkSelect),
-    url(r'^course/statistic/$',get_service.getStatistic),
-    url(r'^student/getAll/$',student_service.getAll),
+    url(r'^course/statistic/$',get_service.getStatistic), #service
+    url(r'^student/getAll/$',student_service.getAll), #service
     url(r'^student/getStu/$',student_service.getStu),
-    url(r'^student/addStu/$',student_service.addStu),
+    url(r'^student/addStu/$',student_service.addStu), #service
     url(r'^index/$',TemplateView.as_view(template_name="index.html"),name="index"),
     url(r'^form/$',TemplateView.as_view(template_name="form.html"),name="form"),
     url(r'^manager/$',TemplateView.as_view(template_name="manager.html"),name="manager")
