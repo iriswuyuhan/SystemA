@@ -31,7 +31,6 @@ $('#addCourse').click(function () {
 function addCourse() {
     let course = {};
     course.cnm = $('#name').val();
-    course.period = parseInt($('#period').val());
     course.credit = parseInt($('#credit').val());
     course.teacher = $('#teacher').val();
     course.room = $('#location').val();
@@ -109,6 +108,7 @@ function loadAllCourse() {
     })
 }
 
+//管理员删除课程
 function deleteCourse(cno) {
     $.ajax({
         type: 'GET',
