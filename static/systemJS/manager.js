@@ -63,15 +63,15 @@ function addCourse() {
 function loadAllCourse() {
     $.ajax({
         type: 'GET',
-        url: '/getAllCourses',
+        url: '/course/getAll',
         data: {},
         dataType: 'text',
         success: function (result) {
-            let resultList = parseXML(result).getElementsByTagName("c:课程");
+            let resultList = parseXML(result).getElementsByTagName("a:课程");
             for (let i = 0; i < resultList.length; i++) {
                 let share = "";
                 let color = "lightskyblue";
-                if (resultList[i].getElementsByTagName("c:Share")[0].firstChild.nodeValue === "Y") {
+                if (resultList[i].getElementsByTagName("a:共享")[0].firstChild.nodeValue === "Y") {
                     share = "已共享";
                 } else {
                     share = "未共享";
@@ -79,12 +79,11 @@ function loadAllCourse() {
                 }
                 $('#course_table').append(
                     '<tr>' +
-                    '<td>' + resultList[i].getElementsByTagName("c:Cno")[0].firstChild.nodeValue + '</td>' +
-                    '<td>' + resultList[i].getElementsByTagName("c:Cnm")[0].firstChild.nodeValue + '</td>' +
-                    '<td>' + resultList[i].getElementsByTagName("c:Ctm")[0].firstChild.nodeValue + '</td>' +
-                    '<td>' + resultList[i].getElementsByTagName("c:Cpt")[0].firstChild.nodeValue + '</td>' +
-                    '<td>' + resultList[i].getElementsByTagName("c:Tec")[0].firstChild.nodeValue + '</td>' +
-                    '<td>' + resultList[i].getElementsByTagName("c:Pla")[0].firstChild.nodeValue + '</td>' +
+                    '<td>' + resultList[i].getElementsByTagName("a:课程编号")[0].firstChild.nodeValue + '</td>' +
+                    '<td>' + resultList[i].getElementsByTagName("a:课程名称")[0].firstChild.nodeValue + '</td>' +
+                    '<td>' + resultList[i].getElementsByTagName("a:学分")[0].firstChild.nodeValue + '</td>' +
+                    '<td>' + resultList[i].getElementsByTagName("a:授课老师")[0].firstChild.nodeValue + '</td>' +
+                    '<td>' + resultList[i].getElementsByTagName("a:授课地点")[0].firstChild.nodeValue + '</td>' +
                     '<td><label style="color: '+ color +'">'+ share +'</label></td>' +
                     '<td>' +
                     '<button class="btn btn-link" id="delete_' + i + '">删除</button>' +

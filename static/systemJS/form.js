@@ -21,9 +21,31 @@ $('#other').click(function () {
 
 $('#check').click(function () {
     let dep = $('input[name=dep]:checked').val();
-
-    // loadShareCourse(dep);
+    loadShareCourse(dep);
 });
+
+
+
+//加载其他院系课程
+function loadShareCourse(dep) {
+    $.ajax({
+        type: 'GET',
+        url: '/course/getCross/',
+        data: {
+            sid: localStorage.getItem('account'),
+            dep: dep
+        },
+        dataType: 'text',
+        success: function (result) {
+            let resultList = parseXML(result).getElementsByTagName("a:课程");
+            drawTable(resultList);
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr.status);
+        }
+
+    })
+}
 
 //加载院系所有课程信息
 function load() {
@@ -36,42 +58,7 @@ function load() {
         dataType: 'text',
         success: function (result) {
             let resultList = parseXML(result).getElementsByTagName("a:课程");
-            for (let i = 0; i < resultList.length; i++) {
-
-                if (resultList[i].getElementsByTagName("a:选择")[0].firstChild.nodeValue === "True"){
-                    $('#college').append(
-                        '<tr>' +
-                        '<td>' + resultList[i].getElementsByTagName("a:课程编号")[0].firstChild.nodeValue + '</td>' +
-                        '<td>' + resultList[i].getElementsByTagName("a:课程名称")[0].firstChild.nodeValue + '</td>' +
-                        '<td>' + resultList[i].getElementsByTagName("a:学分")[0].firstChild.nodeValue + '</td>' +
-                        '<td>' + resultList[i].getElementsByTagName("a:授课老师")[0].firstChild.nodeValue + '</td>' +
-                        '<td>' + resultList[i].getElementsByTagName("a:授课地点")[0].firstChild.nodeValue + '</td>' +
-                        '<td>' +
-                        '<label id="chosen_' + i + '">已选择</label>' +
-                        '</td>' +
-                        '</tr>'
-                    );
-                } else {
-                    $('#college').append(
-                        '<tr>' +
-                        '<td>' + resultList[i].getElementsByTagName("a:课程编号")[0].firstChild.nodeValue + '</td>' +
-                        '<td>' + resultList[i].getElementsByTagName("a:课程名称")[0].firstChild.nodeValue + '</td>' +
-                        '<td>' + resultList[i].getElementsByTagName("a:学分")[0].firstChild.nodeValue + '</td>' +
-                        '<td>' + resultList[i].getElementsByTagName("a:授课老师")[0].firstChild.nodeValue + '</td>' +
-                        '<td>' + resultList[i].getElementsByTagName("a:授课地点")[0].firstChild.nodeValue + '</td>' +
-                        '<td>' +
-                        '<button class="btn btn-link" id="choose_' + i + '">选课</button>' +
-                        '</td>' +
-                        '</tr>' +
-                        '<script>' +
-                        '$("#choose_' + i + '").click(function() {' +
-                        'chooseClass("' + resultList[i].getElementsByTagName("a:课程编号")[0].firstChild.nodeValue + '")' +
-                        '});' +
-                        '</script>'
-                    );
-                }
-
-            }
+            drawTable(resultList);
         },
         error: function (xhr, status, error) {
             console.log(xhr.status);
@@ -100,4 +87,44 @@ function chooseClass(c_id) {
             console.log(xhr.status);
         }
     })
+}
+
+
+function drawTable(resultList) {
+    for (let i = 0; i < resultList.length; i++) {
+
+        if (resultList[i].getElementsByTagName("a:选择")[0].firstChild.nodeValue === "True"){
+            $('#college').append(
+                '<tr>' +
+                '<td>' + resultList[i].getElementsByTagName("a:课程编号")[0].firstChild.nodeValue + '</td>' +
+                '<td>' + resultList[i].getElementsByTagName("a:课程名称")[0].firstChild.nodeValue + '</td>' +
+                '<td>' + resultList[i].getElementsByTagName("a:学分")[0].firstChild.nodeValue + '</td>' +
+                '<td>' + resultList[i].getElementsByTagName("a:授课老师")[0].firstChild.nodeValue + '</td>' +
+                '<td>' + resultList[i].getElementsByTagName("a:授课地点")[0].firstChild.nodeValue + '</td>' +
+                '<td>' +
+                '<label id="chosen_' + i + '">已选择</label>' +
+                '</td>' +
+                '</tr>'
+            );
+        } else {
+            $('#college').append(
+                '<tr>' +
+                '<td>' + resultList[i].getElementsByTagName("a:课程编号")[0].firstChild.nodeValue + '</td>' +
+                '<td>' + resultList[i].getElementsByTagName("a:课程名称")[0].firstChild.nodeValue + '</td>' +
+                '<td>' + resultList[i].getElementsByTagName("a:学分")[0].firstChild.nodeValue + '</td>' +
+                '<td>' + resultList[i].getElementsByTagName("a:授课老师")[0].firstChild.nodeValue + '</td>' +
+                '<td>' + resultList[i].getElementsByTagName("a:授课地点")[0].firstChild.nodeValue + '</td>' +
+                '<td>' +
+                '<button class="btn btn-link" id="choose_' + i + '">选课</button>' +
+                '</td>' +
+                '</tr>' +
+                '<script>' +
+                '$("#choose_' + i + '").click(function() {' +
+                'chooseClass("' + resultList[i].getElementsByTagName("a:课程编号")[0].firstChild.nodeValue + '")' +
+                '});' +
+                '</script>'
+            );
+        }
+
+    }
 }
