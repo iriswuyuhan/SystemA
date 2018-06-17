@@ -1,5 +1,5 @@
 $().ready(function () {
-    // check();
+    check();
     $('#own').click();
 });
 
@@ -58,7 +58,6 @@ function load() {
         },
         dataType: 'text',
         success: function (result) {
-            alert(result);
             let resultList = parseXML(result).getElementsByTagName("a:课程");
             drawTable(resultList);
         },
@@ -71,6 +70,9 @@ function load() {
 
 //选课
 function chooseClass(c_id) {
+
+    console.log(localStorage.getItem('account'));
+    console.log(c_id);
     $.ajax({
         type: 'GET',
         url: '/course/select/',

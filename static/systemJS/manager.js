@@ -31,7 +31,7 @@ $('#addCourse').click(function () {
 function addCourse() {
     let course = {};
     course.cnm = $('#name').val();
-    course.credit = parseInt($('#credit').val());
+    course.credit = $('#credit').val();
     course.teacher = $('#teacher').val();
     course.room = $('#location').val();
     course.share = $('input[name="share"]:checked').val();
@@ -44,7 +44,7 @@ function addCourse() {
         data: JSON.stringify(course),
         success: function (result) {
             console.log(result);
-            if (result === "true") {
+            if (result) {
                 alert("添加成功！");
                 window.location.reload();
             } else {
@@ -91,7 +91,7 @@ function loadAllCourse() {
                     '</tr>' +
                     '<script>' +
                     '$("#delete_' + i + '").click(function() {' +
-                    'deleteCourse("' + resultList[i].getElementsByTagName("c:Cno")[0].firstChild.nodeValue + '")' +
+                    'deleteCourse("' + resultList[i].getElementsByTagName("a:课程编号")[0].firstChild.nodeValue + '")' +
                     '});' +
                     '</script>'
                 );

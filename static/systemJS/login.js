@@ -41,9 +41,9 @@ $('#managerLogin').click(function () {
             password: password
         },
         success: function (result) {
-            if (result === "true") {
+            if (result) {
                 localStorage.setItem('account', manager);
-                window.location.href = "manager.html";
+                window.location.href = "../manager";
             } else {
                 alert("登录失败");
             }
@@ -56,7 +56,7 @@ $('#managerLogin').click(function () {
 });
 
 function check() {
-    if (localStorage.getItem('Sno') === null) {
+    if (localStorage.getItem('account') === null) {
         window.location.href = 'index.html';
     } else {
         document.getElementById('user').innerText = localStorage.getItem('account');

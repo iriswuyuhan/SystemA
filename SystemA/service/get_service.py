@@ -246,6 +246,7 @@ def getCross(request):
     res = urllib.request.urlopen(req)
     content = res.read()
     print(content.decode("utf-8"))
+
     doc = dm.parseString(content.decode("utf-8"))
 
     return HttpResponse(doc.toxml(), "text/xml")

@@ -1,5 +1,5 @@
 $().ready(function () {
-    if (localStorage.getItem('Sno') === null) {
+    if (localStorage.getItem('account') === null) {
         alert("请登录后再使用教务系统");
         $('#stuLogin').show();
         $('#manLogin').show();
@@ -10,10 +10,12 @@ $().ready(function () {
         $('#manLogin').hide();
         $('#welcomeUser').show();
 
-        document.getElementById('user').innerText = localStorage.getItem('Sno');
+        document.getElementById('user').innerText = localStorage.getItem('account');
     }
 
     loadPersonalClass();
+    // loadShareCourse("b", "b_course_table");
+    loadShareCourse("c", "c_course_table");
 });
 
 $('#person_info_btn').click(function () {
@@ -47,6 +49,7 @@ function loadInfo() {
     })
 }
 
+//加载本院系课程
 function loadPersonalClass() {
     $.ajax({
         type: 'GET',
@@ -57,29 +60,7 @@ function loadPersonalClass() {
         dataType: 'text',
         success: function (result) {
             let resultList = parseXML(result).getElementsByTagName("a:课程");
-            for (let i = 0; i < resultList.length; i++) {
-                console.log(resultList[i].getElementsByTagName("a:选择")[0].firstChild.nodeValue);
-                if (resultList[i].getElementsByTagName("a:选择")[0].firstChild.nodeValue === "True"){
-                    console.log("success");
-                    $('#course_table').append(
-                        '<tr>' +
-                        '<td>' + resultList[i].getElementsByTagName("a:课程编号")[0].firstChild.nodeValue + '</td>' +
-                        '<td>' + resultList[i].getElementsByTagName("a:课程名称")[0].firstChild.nodeValue + '</td>' +
-                        '<td>' + resultList[i].getElementsByTagName("a:学分")[0].firstChild.nodeValue + '</td>' +
-                        '<td>' + resultList[i].getElementsByTagName("a:授课老师")[0].firstChild.nodeValue + '</td>' +
-                        '<td>' + resultList[i].getElementsByTagName("a:授课地点")[0].firstChild.nodeValue + '</td>' +
-                        '<td>' +
-                        '<button class="btn btn-link" id="choose_' + i + '">退课</button>' +
-                        '</td>' +
-                        '</tr>' +
-                        '<script>' +
-                        '$("#choose_' + i + '").click(function() {' +
-                        'deleteSubject("' + resultList[i].getElementsByTagName("a:课程编号")[0].firstChild.nodeValue + '")' +
-                        '});' +
-                        '</script>'
-                    );
-                }
-            }
+            chosenCourse(resultList, "course_table");
         },
         error: function (xhr) {
             console.log(xhr);
@@ -88,7 +69,25 @@ function loadPersonalClass() {
 }
 
 
+function loadShareCourse(dep, tableName) {
+    $.ajax({
+        type: 'GET',
+        url: '/course/getCross/',
+        data: {
+            sid: localStorage.getItem('account'),
+            dep: dep
+        },
+        dataType: 'text',
+        success: function (result) {
+            let resultList = parseXML(result).getElementsByTagName("a:课程");
+            chosenCourse(resultList, tableName);
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr.status);
+        }
 
+    })
+}
 
 function deleteSubject(c_id) {
     $.ajax({
@@ -109,4 +108,30 @@ function deleteSubject(c_id) {
             console.log(xhr);
         }
     })
+}
+
+
+function chosenCourse(resultList, tableName) {
+    for (let i = 0; i < resultList.length; i++) {
+                if (resultList[i].getElementsByTagName("a:选择")[0].firstChild.nodeValue.toUpperCase() === "TRUE"){
+                    console.log("success");
+                    $('#' + tableName).append(
+                        '<tr>' +
+                        '<td>' + resultList[i].getElementsByTagName("a:课程编号")[0].firstChild.nodeValue + '</td>' +
+                        '<td>' + resultList[i].getElementsByTagName("a:课程名称")[0].firstChild.nodeValue + '</td>' +
+                        '<td>' + resultList[i].getElementsByTagName("a:学分")[0].firstChild.nodeValue + '</td>' +
+                        '<td>' + resultList[i].getElementsByTagName("a:授课老师")[0].firstChild.nodeValue + '</td>' +
+                        '<td>' + resultList[i].getElementsByTagName("a:授课地点")[0].firstChild.nodeValue + '</td>' +
+                        '<td>' +
+                        '<button class="btn btn-link" id="choose_' + i + '">退课</button>' +
+                        '</td>' +
+                        '</tr>' +
+                        '<script>' +
+                        '$("#choose_' + i + '").click(function() {' +
+                        'deleteSubject("' + resultList[i].getElementsByTagName("a:课程编号")[0].firstChild.nodeValue + '")' +
+                        '});' +
+                        '</script>'
+                    );
+                }
+            }
 }

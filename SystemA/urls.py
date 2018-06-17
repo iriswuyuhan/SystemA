@@ -45,5 +45,6 @@ urlpatterns = [
     url(r'^student/getStu/$',student_service.getStu),
     url(r'^student/addStu/$',student_service.addStu),
     url(r'^index/$',TemplateView.as_view(template_name="index.html"),name="index"),
-    url(r'^form/$',TemplateView.as_view(template_name="form.html"),name="form")
+    url(r'^form/$',TemplateView.as_view(template_name="form.html"),name="form"),
+    url(r'^manager/$',TemplateView.as_view(template_name="manager.html"),name="manager")
 ]

@@ -60,8 +60,7 @@ class Course:
 
     def addCourse(self,cid,cnm,credit,teacher,croom,share):
         conn=Connection()
-        sql="INSERT INTO dbo.课程 VALUES('"+cid+"','"+cnm+"','"+credit+"','"+teacher+"','"+\
-            croom+"','"+share+"');"
+        sql="INSERT INTO dbo.课程 VALUES('"+cid+"','"+cnm+"','"+credit+"','"+teacher+"','"+croom+"','"+share+"');"
         try:
             conn.update(sql)
         except Exception as e:
