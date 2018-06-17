@@ -22,17 +22,23 @@ from .service import select_service
 from .service import drop_service
 from .service import get_service
 from .service import student_service
+from .service import admin_service
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('',admin.site.urls),
     url(r'^usrlogin/$', login_service.login),
+    url(r'^adminlogin/$',admin_service.login),
     url(r'^course/select/$',select_service.select),
+    url(r'^course/add/$',admin_service.addCourse),
+    url(r'^course/remove/$',admin_service.removeCourse),
     url(r'^course/drop/$',drop_service.drop),
     url(r'^course/getAll/$',get_service.getAll),
     url(r'^course/getStuSelect$',get_service.getStu),
     url(r'^course/getStu/$',get_service.getSelect),
     url(r'^course/getAllSelect/$',get_service.getAllSelect),
+    url(r'^course/getShare/$',get_service.getShare),
+    url(r'^course/getCross/$',get_service.getCross),
     url(r'^course/check/$',get_service.checkSelect),
     url(r'^course/statistic/$',get_service.getStatistic),
     url(r'^student/getAll/$',student_service.getAll),

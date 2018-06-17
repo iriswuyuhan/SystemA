@@ -8,11 +8,13 @@ function load() {
     $.ajax({
         type: 'GET',
         url: '/course/getStu/',
+        // url:'172.19.184.117:8080/api/getUserShareCourses?sid=151099001',
         data: {
             sid: localStorage.getItem('account')
         },
         dataType: 'text',
         success: function (result) {
+            alert(result);
             let resultList = parseXML(result).getElementsByTagName("a:课程");
             for (let i = 0; i < resultList.length; i++) {
 

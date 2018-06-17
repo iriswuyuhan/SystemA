@@ -5,7 +5,7 @@ import xml.dom.minidom as dm
 def addStu(request):
     student=Student()
     bodydata=request.body
-    doc=dm.parseString(bodydata)
+    doc=dm.parseString(bodydata.decode("utf-8"))
     student.addStudent(doc)
     return HttpResponse(True)
 

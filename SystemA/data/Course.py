@@ -50,10 +50,34 @@ class Course:
 
     def checkCourse(self,sid,cid):
         conn=Connection()
-        sql = "DELETE FROM dbo.选课 WHERE 课程编号='" + cid + "' AND 学生编号='" + sid + "';"
+        sql = "SELECT * FROM dbo.选课 WHERE 课程编号='" + cid + "' AND 学生编号='" + sid + "';"
         result=conn.query(sql)
         conn.close()
         if result == None or len(result) == 0:
             return False
         else:
             return True
+
+    def addCourse(self,cid,cnm,credit,teacher,croom,share):
+        conn=Connection()
+        sql="INSERT INTO dbo.课程 VALUES('"+cid+"','"+cnm+"','"+credit+"','"+teacher+"','"+\
+            croom+"','"+share+"');"
+        try:
+            conn.update(sql)
+        except Exception as e:
+            conn.close()
+            return False
+        conn.close()
+        return True
+        pass
+
+    def removeCourse(self,cid):
+        conn=Connection()
+        sql="DELETE FROM dbo.课程 WHERE 课程编号='"+cid+"';"
+        try:
+            conn.update(sql)
+        except Exception as e:
+            conn.close()
+            return False
+        conn.close()
+        return True
