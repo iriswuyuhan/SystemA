@@ -29,13 +29,36 @@ $('#login').click(
     }
 );
 
+$('#managerLogin').click(function () {
+    let manager =  $('#managerName').val();
+    let password = $('#managePass').val();
+
+    $.ajax({
+        type: 'GET',
+        url: '/adminlogin/',
+        data: {
+            account: manager,
+            password: password
+        },
+        success: function (result) {
+            if (result === "true") {
+                localStorage.setItem('account', manager);
+                window.location.href = "manager.html";
+            } else {
+                alert("登录失败");
+            }
+        },
+        error: function (xhr) {
+            console.log(xhr);
+        }
+
+    })
+});
+
 function check() {
-    if (localStorage.getItem('account') === null) {
-        $('#loginAndSign').show();
-        $('#welcomeUser').hide();
+    if (localStorage.getItem('Sno') === null) {
+        window.location.href = 'index.html';
     } else {
-        $('#loginAndSign').hide();
-        $('#welcomeUser').show();
         document.getElementById('user').innerText = localStorage.getItem('account');
     }
 }

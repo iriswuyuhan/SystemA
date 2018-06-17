@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>学院A课程系统</title>
+    <title>法学院课程系统</title>
 	
 	<!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
 	<link rel="stylesheet" href="../static/materialize/css/materialize.min.css" media="screen,projection" />
@@ -16,7 +16,6 @@
     <link href="../static/css/custom-styles.css" rel="stylesheet" />
     <!-- Google Fonts-->
     <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />-->
-    <link rel="stylesheet" href="../static/js/Lightweight-Chart/cssCharts.css">
 </head>
 <body>
     <div id="wrapper">
@@ -28,50 +27,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand waves-effect waves-dark" href="index.html"><i class="large material-icons"></i> <strong>System A</strong></a>
+                <a class="navbar-brand waves-effect waves-dark" href="index.html"><i class="large material-icons"></i> <strong>法学院</strong></a>
             </div>
 
                 <ul class="nav navbar-top-links navbar-right">
-                    <li id="loginAndSign">
-                        <a class="waves-effect waves-dark" data-target="#loginWindow" data-toggle="modal">
-                            <i class="fa fa-user fa-fw"></i><b>登录 ／ 注册</b>
-                        </a>
-                    </li>
-                    <li id="welcomeUser" style="display: none">
+                    <li id="welcomeUser">
                         <a class="dropdown-button waves-effect waves-dark" data-activates="dropdown1">
                             <i class="fa fa-user fa-fw"></i><b id="user"></b>
                         </a>
                     </li>
                 </ul>
         </nav>
-        <div class="modal fade" id="loginWindow" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-header">
-                    <span>登录</span>
-                </div>
-                <div class="modal-body">
-                    <div>
-                        <input id="username" class="input" type="text" placeholder="用户名"/>
-                        <br>
-                        <input id="password" class="input" type="password" placeholder="密码"/>
-                        <br>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button id="login" class="btn btn-block" data-dismiss="modal">登录</button>
-                </div>
-            </div>
-        </div>
-        <!-- Dropdown Structure -->
-        <ul id="dropdown1" class="dropdown-content">
-            <li><a href="#"><i class="fa fa-user fa-fw"></i> My Profile</a>
-            </li>
-            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-            </li>
-            <li><a href="#"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
-            </li>
-        </ul>
-
     </div>
 
     <nav class="navbar-default navbar-side" role="navigation">
@@ -82,7 +48,15 @@
                 </li>
                 <li>
                     <a class="active-menu waves-effect waves-dark"><i class="fa fa-desktop"></i>全部课程</a>
-                </li>　
+                    <ul class="nav nav-third-level">
+                        <li>
+                            <a id="own">专业选课</a>
+                        </li>
+                        <li>
+                            <a id="other">跨院系选课</a>
+                        </li>
+                    </ul>
+                </li>　　
             </ul>
         </div>
     </nav>
@@ -92,21 +66,34 @@
         <h1 class="page-header">全部课程</h1>
         <ol class="breadcrumb">
           <li><a>首页</a></li>
-          <li><a>院系B</a></li>
-          <li class="active">全部课程</li>
+          <li><a>院系A</a></li>
+          <li class="active" id="view">全部课程</li>
         </ol>
       </div>
 
       <div class="container">
-          <table class="table" style="width: 1000px" id="college">
+          <div class="row" style="margin-left: 18px" id="share">
+              <span>选择院系 : </span>
+              <input type="radio" value="b" name="dep" checked="checked" style="position: relative;left: 0;opacity: 2;margin-left: 20px">计算机科学与技术学院</input>
+              <input type="radio" value="c" name="dep" style="position: relative;left: 0;opacity: 2;margin-left: 20px">商学院</input>
+              <button class="btn btn-danger" style="margin-left: 40px" id="check">查找</button>
+          </div>
+
+          <table class="table" style="width: 1000px">
+              <thead>
               <tr>
                   <th>课程编号</th>
                   <th>课程名字</th>
+                  <th>每次课时(h)</th>
                   <th>课程学分</th>
                   <th>授课教师</th>
                   <th>上课地点</th>
                   <th>课程操作</th>
               </tr>
+              </thead>
+              <tbody id="college">
+
+              </tbody>
           </table>
       </div>
     </div>

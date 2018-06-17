@@ -1,5 +1,18 @@
 $().ready(function () {
-    check();
+    if (localStorage.getItem('Sno') === null) {
+        alert("请登录后再使用教务系统");
+        $('#stuLogin').show();
+        $('#manLogin').show();
+        $('#welcomeUser').hide();
+
+    } else {
+        $('#stuLogin').hide();
+        $('#manLogin').hide();
+        $('#welcomeUser').show();
+
+        document.getElementById('user').innerText = localStorage.getItem('Sno');
+    }
+
     loadPersonalClass();
 });
 
